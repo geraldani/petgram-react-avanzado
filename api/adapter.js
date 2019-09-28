@@ -1,5 +1,5 @@
-const low = require("lowdb");
-const FileSync = require("lowdb/adapters/FileSync");
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
 const Memory = require('lowdb/adapters/Memory')
 
 const json = require('./db.json')
