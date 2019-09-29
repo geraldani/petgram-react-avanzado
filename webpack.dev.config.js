@@ -1,6 +1,5 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const webpack = require('webpack')
 
 module.exports = {
   entry: {
@@ -12,12 +11,12 @@ module.exports = {
   },
   mode: 'development',
   devServer: {
-    open: true
+    // open: true
   },
   module: {
     rules: [
       {
-        test: /\.js|jsx$/,
+        test: /\.js$|jsx$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
