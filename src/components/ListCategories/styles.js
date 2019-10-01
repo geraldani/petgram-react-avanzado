@@ -11,5 +11,6 @@ export const style = {
 `,
   div: styled.div`
     width: 100%;
+    margin-bottom: 20px;
 `
 }
