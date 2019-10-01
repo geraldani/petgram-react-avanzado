@@ -3,9 +3,11 @@ import { Category } from '../Category'
 import { style } from './styles'
 
 export const ListOfCategories = () => {
+  const PIXELS = 200
   const [categories, setCategories] = useState([])
+  const [showFixed, setShowFixed] = useState(window.scrollY > PIXELS)
 
-  // usando promesas
+  // fetch usando promesas
   /* useEffect(() => {
      window.fetch('https://petgram-server-geral-draamzgte.now.sh/categories')
        .then(res => res.json())
@@ -15,7 +17,7 @@ export const ListOfCategories = () => {
        }
    }, []) */
 
-  // usando await
+  // fetch usando async/await
   useEffect(() => {
     const getData = async () => {
       try {
@@ -29,9 +31,24 @@ export const ListOfCategories = () => {
 
     getData() // llamado de la funcion para extraer la data
   }, [])
-  return (
+
+  /* Efecto para modificar la clase de cuando la lista de elementos esta fija o no dependiendo de su posicion en la pantalla */
+  useEffect(() => {
+    function onScroll (e) {
+      const newShowFixed = window.scrollY > PIXELS
+      if (newShowFixed !== showFixed) {
+        console.log('cambie')
+        setShowFixed(newShowFixed)
+      }
+    }
+
+    document.addEventListener('scroll', onScroll)
+    return () => { document.removeEventListener('scroll', onScroll) }
+  }, [showFixed])
+
+  const renderList = (isFirst = false) => (
     <style.div>
-      <style.ul>
+      <style.ul className={isFirst ? '' : showFixed ? 'fixed in' : 'fixed out'}>
         {
           categories.map((category) =>
             <style.li key={category.id}>
@@ -40,5 +57,12 @@ export const ListOfCategories = () => {
         }
       </style.ul>
     </style.div>
+  )
+  return (
+    <>
+      {renderList(true)}
+      {renderList()}
+      {/* {showFixed && renderList(showFixed)} */}
+    </>
   )
 }
