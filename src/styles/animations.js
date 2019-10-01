@@ -28,6 +28,15 @@ const moveOutKeyframes = keyframes`
     }
 `
 
+const transitionCoverKeyframes = keyframes`
+    from{
+        left: -20px;
+    }
+    to{
+        left: 90px;
+    }
+`
+
 export const fadeIn = ({ time = '1s', type = 'ease' } = {}) =>
   css`animation: ${time} ${fadeKeyframes} ${type};`
 
@@ -36,3 +45,6 @@ export const moveIn = (time = 1) =>
 
 export const moveOut = (time = 1) =>
   css`animation: ${time}s ${moveOutKeyframes} ease;`
+
+export const transitionCover = (time = 1) =>
+  css`animation: ${time}s ${transitionCoverKeyframes} linear infinite;`

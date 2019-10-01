@@ -6,6 +6,7 @@ export const style = {
     display: flex;
     overflow: scroll;
     width: 100%;
+    padding-bottom: 15px;
     ${props => !props.isFirst && css`
         background-color: white;
         position: fixed;
@@ -18,15 +19,15 @@ export const style = {
         box-shadow: 0 0 20px rgba(0,0,0,.3);
         padding: 5px;
         transform: scale(.7);
+        ${props.fixedInOut
+          ? css` 
+            top: -10px;
+            ${moveIn(0.7)}`
+         : css`
+            top: -120px;
+            ${moveOut(0.4)}`
+        }
     `}
-    ${props => props.fixedInOut && !props.isFirst
-      ? css` 
-          top: -10px;
-          ${moveIn()}`
-      : css`
-          top: -120px;
-          ${moveOut(0.5)}`
-  }
 `,
   li: styled.li`
     padding: 0 8px;
