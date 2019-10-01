@@ -48,7 +48,7 @@ export const ListOfCategories = () => {
 
   const renderList = (isFirst = false) => (
     <style.div>
-      <style.ul className={isFirst ? '' : showFixed ? 'fixed in' : 'fixed out'}>
+      <style.ul isFirst={isFirst} fixedInOut={showFixed}>
         {
           categories.map((category) =>
             <style.li key={category.id}>
