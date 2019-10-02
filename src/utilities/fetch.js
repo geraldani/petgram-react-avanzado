@@ -1,28 +1,41 @@
-export const getData = async (url, ...functions) => {
-  try {
-    const [setLoading, setCategories] = functions
-    setLoading(true)
-    const res = await delayFetch(url, 1000)
-    const response = await res.json()
-    setCategories(response)
-    setLoading(false)
-  } catch (error) {
-    console.log('Ocurrio un error: ', error)
-  }
+import { useEffect, useState } from 'react'
+
+// un customHook para hacer fetchin de data
+export function useFetchData (url, delay = 0) {
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        setLoading(true)
+        const res = await delayFetch(url, delay)
+        const response = await res.json()
+        setData(response)
+        setLoading(false)
+      } catch (error) {
+        console.log('Ocurrio un error: ', error)
+      }
+    }
+    getData()
+  }, [])
+  return [data, loading]
 }
 
 // Esto es para crear un retardo de 3 segundos para ver las animaciones de la carga de datos
-function delayFetch (url, time = 0) { // recibe el tiempo
+function delayFetch (url, time) { // recibe el tiempo
+  const delay = new Promise(resolve => {
+    setTimeout(() => {
+      window.fetch(url)
+        .then(res => {
+          resolve(res)
+        })
+    }, time)
+  })
+
   return (
     time
-      ? new Promise(resolve => { // este es con retardo
-        setTimeout(() => {
-          window.fetch(url)
-            .then(res => {
-              resolve(res)
-            })
-        }, time)
-      })
+      ? delay // este es con retardo
       : window.fetch(url)// y este sin retardo
   )
 }
