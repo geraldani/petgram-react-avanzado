@@ -7,12 +7,13 @@ module.exports = {
     home: path.resolve(__dirname, 'src', 'index.js')
   },
   output: {
-    filename: 'app.bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: 'app.bundle.[hash].js',
+    path: path.resolve(__dirname, 'dist'),
+    chunkFilename: 'file.[id].[chunkhash].js'
   },
   mode: 'development',
   devServer: {
-    // open: true,
+    open: true,
     hot: true
   },
   module: {
@@ -28,7 +29,8 @@ module.exports = {
               '@babel/preset-react'
             ],
             plugins: [
-              '@babel/plugin-transform-runtime'
+              '@babel/plugin-transform-runtime',
+              '@babel/plugin-syntax-dynamic-import'
             ]
           }
         }
