@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { fadeIn } from '../../styles/animations'
 
 export const style = {
@@ -12,13 +12,13 @@ export const style = {
     width: 100%;
 `,
   img: styled.img`
-    ${fadeIn()}
     box-shadow: 10px 14px rgba(0, 0, 0, .2);
     height: 100%;
     object-fit: cover;
     position: absolute;
     top: 0;
     width: 100%;
+    ${fadeIn()}
     &#img6{
         object-position: 100% 0;
     }
@@ -34,5 +34,7 @@ export const style = {
   article: styled.article`
     width: 90%;
     margin: 20px auto;
+    min-height: 286px;
+    
 `
 }

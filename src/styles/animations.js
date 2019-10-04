@@ -13,7 +13,7 @@ const fadeKeyframes = keyframes`
 
 const moveInKeyframes = keyframes`
     from{
-        top: -110px
+        top: -120px
     }
     to{
         top: -10px
@@ -24,7 +24,7 @@ const moveOutKeyframes = keyframes`
         top: -10px
     }
     to{
-        top: -110px
+        top: -120px
     }
 `
 
