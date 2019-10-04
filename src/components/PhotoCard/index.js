@@ -1,29 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { style } from './styles'
-import { TiHeartOutline as HeartIcon } from 'react-icons/ti'
+import { useLocalStorage } from '../../hooks/localStorage'
+import { useLazyLoading } from '../../hooks/lazyLoading'
+import { TiHeartOutline as HeartIcon, TiHeartFullOutline as HeartIconFull } from 'react-icons/ti'
 
 export const PhotoCard = ({ id, likes = 0, src }) => {
-  const elDOM = useRef(null)
-  const [showImage, setShowImage] = useState(false)
-
-  useEffect(() => {
-    Promise.resolve(
-      /* aqui estoy preguntando si el navegador ya trae esta api (intersepction observer), por lo cual si no la trae la importa (del paquete instaldo) y si la trae pues la ejecuta directamente sin traerse el paquete */
-      typeof window.IntersectionObserver !== 'undefined'
-        ? window.IntersectionObserver
-        : import('intersection-observer') /* esto es un import dinamico, se va a importar un paquete si cumple una condicion, para que se traspile esot correctamente hay q agregar un plugin a babel que se llama babel/plugin-syntax-dynamic-import */
-    ).then(() => { // cuando se resuelva la promesa, entonces carga y ejecuta intersepcionObserver
-      const observer = new window.IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          setShowImage(true)
-          observer.disconnect()
-        } else {
-          setShowImage(false)
-        }
-      })
-      observer.observe(elDOM.current)
-    })
-  }, [elDOM])
+  const [elDOM, showImage] = useLazyLoading()
+  const key = `like-${id}` // esta key es para establecer un nombre unico para acceder a el en el localstorage
+  const [liked, setLiked] = useLocalStorage(false, key)
+  const IconLiked = liked ? HeartIconFull : HeartIcon // para saber si te gusta o no la imagen
 
   return (
     <style.article ref={elDOM} id={id}>
@@ -35,8 +20,8 @@ export const PhotoCard = ({ id, likes = 0, src }) => {
               <style.img src={src} alt={`image${id}`} id={`img${id}`} />
             </style.div>
           </a>
-          <style.button>
-            <HeartIcon size='25px' />{likes} likes!
+          <style.button onClick={() => { setLiked(!liked) }}>
+            <IconLiked size='25px' /> {likes} likes!
           </style.button>
         </>
       }

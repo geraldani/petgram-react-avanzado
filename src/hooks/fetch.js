@@ -24,18 +24,14 @@ export function useFetchData (url, delay = 0) {
 
 // Esto es para crear un retardo de 3 segundos para ver las animaciones de la carga de datos
 function delayFetch (url, time) { // recibe el tiempo
-  const delay = new Promise(resolve => {
-    setTimeout(() => {
-      window.fetch(url)
-        .then(res => {
-          resolve(res)
-        })
-    }, time)
-  })
-
-  return (
-    time
-      ? delay // este es con retardo
-      : window.fetch(url)// y este sin retardo
-  )
+  if (time !== 0) { // esta es con retardo
+    return new Promise(resolve => {
+      setTimeout(() => {
+        window.fetch(url)
+          .then(res => {
+            resolve(res)
+          })
+      }, time)
+    })
+  } else return window.fetch(url)// y este sin retardo
 }

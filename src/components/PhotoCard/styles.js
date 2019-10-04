@@ -30,6 +30,9 @@ export const style = {
     & svg {
         margin-right: 4px;
     }
+    &:hover{
+        cursor: pointer;
+    }
 `,
   article: styled.article`
     width: 90%;

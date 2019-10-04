@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Category } from '../Category'
 import { style } from './styles'
-import { useFetchData } from '../../utilities/fetch'
+import { useFetchData } from '../../hooks/fetch'
 
 export const ListOfCategories = () => {
   const PIXELS = 200
