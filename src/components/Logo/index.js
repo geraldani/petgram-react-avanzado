@@ -1,8 +1,8 @@
 import React from 'react'
-import { style } from './styles'
+import { Svg } from './styles'
 
 export const Logo = props => (
-  <style.svg
+  <Svg
     width={385.415}
     height={122.021}
     viewBox="57.293 13.989 385.415 122.021"
@@ -69,5 +69,5 @@ export const Logo = props => (
       />
     </g>
     <style />
-  </style.svg>
+  </Svg>
 )

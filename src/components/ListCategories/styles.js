@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components'
 import { moveIn, moveOut } from '../../styles/animations'
 
-export const style = {
-  ul: styled.ul`
+const Items = styled.ul`
     display: flex;
     overflow: scroll;
     width: 100%;
@@ -28,12 +27,18 @@ export const style = {
             ${moveOut(0.4)}`
         }
     `}
-`,
-  li: styled.li`
-    padding: 0 8px;
-`,
-  div: styled.div`
+`
+
+const Container = styled.div`
     width: 100%;
     margin-bottom: 20px;
 `
+
+const Item = styled.li`
+    padding: 0 8px;
+`
+export {
+  Items,
+  Container,
+  Item
 }

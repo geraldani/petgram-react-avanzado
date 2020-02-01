@@ -1,14 +1,15 @@
 import styled from 'styled-components'
 import { transitionCover } from '../../styles/animations'
 
-const a = styled.a`
+
+const Link = styled.a`
   display: flex;
   flex-direction: column;
   text-align: center;
   text-decoration: none;
   width: 75px;
 `
-const img = styled.img`
+const Image = styled.img`
     border: 1px solid #ddd;
     box-shadow: 0 10px 14px rgba(0,0,0,.2);
     border-radius: 50%;
@@ -17,10 +18,7 @@ const img = styled.img`
     height: 75px;
     width: 75px;
 `
-const span = styled.span`
-    margin-top: 10px;
-`
-const div = styled.div`
+const Circle = styled.div`
     border: 1px solid #ddd;
     box-shadow: 0 10px 14px rgba(0,0,0,.2);
     border-radius: 50%;
@@ -40,9 +38,8 @@ const div = styled.div`
         ${transitionCover(0.8)}
     }
 `
-export const style = {
-  a,
-  img,
-  div,
-  span
+export {
+  Image,
+  Circle,
+  Link,
 }
