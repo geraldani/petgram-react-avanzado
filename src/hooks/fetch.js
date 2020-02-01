@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 
 // un customHook para hacer fetchin de data
-export function useFetchData (url, delay = 0) {
+export function useFetchGetData (url, delay = 0) {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
+  const [errorGettingData, setErrorGettingData] = useState(null)
 
   useEffect(() => {
-    const getData = async () => {
+    (async () => {
       try {
         setLoading(true)
         const res = await delayFetch(url, delay)
@@ -14,12 +15,12 @@ export function useFetchData (url, delay = 0) {
         setData(response)
         setLoading(false)
       } catch (error) {
-        console.log('Ocurrio un error: ', error)
+        setLoading(false)
+        setErrorGettingData(error)
       }
-    }
-    getData()
+    })()
   }, [])
-  return [data, loading]
+  return [data, loading, errorGettingData]
 }
 
 // Esto es para crear un retardo de 3 segundos para ver las animaciones de la carga de datos
