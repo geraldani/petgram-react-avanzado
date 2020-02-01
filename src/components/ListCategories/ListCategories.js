@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { Category } from '../Category'
 import { Items, Container, Item, ItemsFloating, ErrorMessage } from './styles'
 import { useFetchGetData } from '../../hooks/fetch'
+import { ENDPOINTS } from '../../Constrants/Constantes'
 
 export const ListOfCategories = () => {
   const PIXELS = 200
 
   // ESTADO
   const [showItemsFloating, setShowItemsFloating] = useState(window.scrollY > PIXELS)
-  const [categories, loading, errorData] = useFetchGetData('https://petgram-server-geral-draamzgte.now.sh/categories') // esto es para setear las categories del fetching
+  const [categories, loading, errorData] = useFetchGetData(ENDPOINTS.categories) // esto es para setear las categories del fetching
+
+
 
   /* Efecto para modificar la clase de cuando la lista de elementos esta fija o no dependiendo de su posicion en la pantalla */
   useEffect(() => {
