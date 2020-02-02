@@ -8,6 +8,7 @@ const Link = styled.a`
   text-align: center;
   text-decoration: none;
   width: 75px;
+  color: #000;
 `
 const Image = styled.img`
     border: 1px solid #ddd;

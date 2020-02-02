@@ -1,13 +1,34 @@
 import React from 'react'
 import { PhotoCard } from '../PhotoCard'
-import { photos } from '../../../api/db.json'
+import { graphql } from 'react-apollo'
+import { gql } from 'apollo-boost'
+import { Loader } from '../Utils'
 
-export const ListOfPhotoCards = () => (
-  <div>
-    {
-      photos.map(photo =>
-        <PhotoCard {...photo} key={photo.id} />
-      )
+//esto es graphql, tengo que aprender mas de eso.. es para hacer fetching d datos de manera selectiva
+const withPhotos = graphql(gql`
+  query getPhotos{
+    photos{
+      id
+      categoryId
+      src
+      likes
+      userId
+      liked
     }
-  </div>
-)
+  }
+`)
+
+const PhotoCards = (props) => {
+  let { data: { photos, loading } } = props
+  return (
+    <div>
+      {
+        loading
+          ? <Loader/>
+          : photos.map(photo => <PhotoCard {...photo} key={photo.id} />)
+      }
+    </div>
+  )
+}
+
+export const ListOfPhotoCards = withPhotos(PhotoCards)

@@ -7,11 +7,8 @@ import { ENDPOINTS } from '../../Constrants/Constantes'
 export const ListOfCategories = () => {
   const PIXELS = 200
 
-  // ESTADO
   const [showItemsFloating, setShowItemsFloating] = useState(window.scrollY > PIXELS)
   const [categories, loading, errorData] = useFetchGetData(ENDPOINTS.categories) // esto es para setear las categories del fetching
-
-
 
   /* Efecto para modificar la clase de cuando la lista de elementos esta fija o no dependiendo de su posicion en la pantalla */
   useEffect(() => {
@@ -25,9 +22,8 @@ export const ListOfCategories = () => {
     return () => document.removeEventListener('scroll', onScroll)
   }, [showItemsFloating])
 
-
-  const WrappedComponent = ({ component: Component }) => (
-    <Component showFloating={showItemsFloating}>
+  const renderComponent = (Component) => (
+    <Component showFloating={showItemsFloating} key={Component}>
       {
         errorData
           ? <ErrorMessage>😟 Ocurrio un error al traer la data 😪</ErrorMessage>
@@ -40,8 +36,9 @@ export const ListOfCategories = () => {
 
   return (
     <Container>
-      <WrappedComponent component={Items} />
-      <WrappedComponent component={ItemsFloating} />
+      {
+        [Items, ItemsFloating].map(component => renderComponent(component))
+      }
     </Container>
   )
 }
