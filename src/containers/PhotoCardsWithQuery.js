@@ -1,21 +1,9 @@
 import React from 'react'
 import { PhotoCard } from '../components/PhotoCard'
-import { gql } from 'apollo-boost'
 import { Query } from 'react-apollo'
 import { Loader } from '../components/Utils'
+import { GET_SINGLE_PHOTO } from '../Queries'
 
-const query = gql`
-  query getSinglePhoto($id: ID!){
-    photo(id: $id){
-      id
-      categoryId
-      src
-      likes
-      userId
-      liked
-    }
-  }
-`
 export const PhotoCardsWithQuery = ({ id }) => {
   /*forma de hacerlo con un solo llamado a la api sin una nueva query
   const data = rest.data.photos
@@ -26,7 +14,7 @@ export const PhotoCardsWithQuery = ({ id }) => {
   if (Object.values(photo).length === 0) return <h3>Cargando...</h3>
   return <PhotoCard {...photo} />*/
   return (
-    <Query query={query} variables={{id}}>
+    <Query query={GET_SINGLE_PHOTO} variables={{id}}>
       {
         ({error, loading, data }) => {
           const {photo} = data || {};
