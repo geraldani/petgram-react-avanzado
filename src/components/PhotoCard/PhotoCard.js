@@ -4,7 +4,8 @@ import { useLocalStorage } from '../../hooks/localStorage'
 import { useLazyLoading } from '../../hooks/lazyLoading'
 import { TiHeartOutline as HeartIconEmpty, TiHeartFullOutline as HeartIconFull } from 'react-icons/ti'
 
-export const PhotoCard = ({ id, likes = 0, src }) => {
+const imageDefault = 'https://res.cloudinary.com/midudev/image/upload/w_300/q_80/v1560262103/dogs.png'
+export const PhotoCard = ({ id, likes = 0, src = imageDefault}) => {
   const [elDOM, showImage] = useLazyLoading()
   const key = `like-${id}` // esta key es para establecer un nombre unico para acceder a el en el localstorage
   const [liked, setLiked] = useLocalStorage(false, key)
@@ -15,7 +16,7 @@ export const PhotoCard = ({ id, likes = 0, src }) => {
       {
         showImage &&
         <>
-          <a href={`/detail/${id}`}>
+          <a href={`/?detail=${id}`}>
             <ImageContainer>
               <img src={src} alt={`image${id}`} id={`img${id}`} />
             </ImageContainer>

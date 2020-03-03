@@ -87,7 +87,7 @@ export const Loader = ({ color = 'black', size = '64px' }) => (
   <Container>
     <StyledLoader color={color} size={size}>
       {
-        [...Array(9)].map(() => <div />)
+        [...Array(9)].map(() => <div key={Math.random()}/>)
       }
     </StyledLoader>
     <p>Cargango...</p>
