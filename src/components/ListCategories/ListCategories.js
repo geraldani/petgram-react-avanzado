@@ -22,17 +22,26 @@ export const ListOfCategories = () => {
     return () => document.removeEventListener('scroll', onScroll)
   }, [showItemsFloating])
 
-  const renderComponent = (Component) => (
-    <Component showFloating={showItemsFloating} key={Component}>
-      {
-        errorData
-          ? <ErrorMessage>😟 Ocurrio un error al traer la data 😪</ErrorMessage>
-          : loading
-            ? [...Array(8)].map((nro, index) => <Item key={index}><Category /></Item>)
-            : categories.map(category => <Item key={category.id}><Category {...category} /></Item>)
-      }
-    </Component>
-  )
+  const renderComponent = (Component) => {
+    let WrappedComponent;
+
+    if (errorData) WrappedComponent =  <ErrorMessage>😟 Ocurrio un error al traer la data 😪</ErrorMessage>
+    else if (loading) WrappedComponent = [...Array(8)].map((nro, index) => <Item key={index}><Category /></Item>)
+    else WrappedComponent = categories.map(category => <Item key={category.id}><Category {...category} path={`/animal/${category.id}`} /></Item>)
+
+    return(
+      <Component showFloating={showItemsFloating} key={Component}>
+        {
+          WrappedComponent
+         /* errorData
+            ? <ErrorMessage>😟 Ocurrio un error al traer la data 😪</ErrorMessage>
+            : loading
+              ? [...Array(8)].map((nro, index) => <Item key={index}><Category /></Item>)
+              : categories.map(category => <Item key={category.id}><Category {...category} /></Item>)*/
+        }
+      </Component>
+    )
+  }
 
   return (
     <Container>
